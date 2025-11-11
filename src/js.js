@@ -1,8 +1,25 @@
 
 
+let componentHooks = []
+let currentHookIndex = 0;
 
+function useState(initialState){
+    let pair = componentHooks[currentHookIndex]
+    if(pair){
+        currentHookIndex++;
+        return pair;
+    }
 
+    pair = [initialState , setState]
+    function setState(nextState){
+        pair[0] = nextState;
+        updateDOM()
+    }
 
+    componentHooks[currentHookIndex] = pair;
+    currentHookIndex++;
+    return pair;
+}
 
 
 
@@ -36,13 +53,31 @@ function Gallery() {
         imageAlt: sculpture.alt
 
     }
-
 }
 
 
 function updateDOM() {
+    currentHookIndex = 0;
     let output = Gallery();
+
+    nextButton.onclick = output.onNextClick;
+    header.textContent = output.header;
+    moreButton.onclick = output.onMoreClick;
+    moreButton.textContent = output.more;
+    image.src = output.imageSrc;
+    image.alt = output.imageAlt;
+
+    // Update the description based on showMore state
+    if (output.description !== null) {
+        description.textContent = output.description;
+        description.style.display = '';
+    } else {
+        description.textContent = '';
+        description.style.display = 'none';
+    }
 }
+
+
 
 let nextButton = document.getElementById('nextButton');
 let header = document.getElementById('header');
