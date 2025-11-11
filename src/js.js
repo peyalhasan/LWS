@@ -21,15 +21,6 @@ function useState(initialState){
     return pair;
 }
 
-
-
-
-
-
-
-
-
-
 function Gallery() {
     const [index, setIndex] = useState(0);
     const [showMore, setShowMore] = useState(false);

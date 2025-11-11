@@ -15,19 +15,35 @@ export default function Gallery() {
         Next
       </button>
       <h2>
-        <i>{sculpture.name} </i> 
+        <i>{sculpture.name} </i>
         by {sculpture.artist}
       </h2>
-      <h3>  
+      <h3>
         ({index + 1} of {sculptureList.length})
       </h3>
-      <img 
-        src={sculpture.url} 
+      <img
+        src={sculpture.url}
         alt={sculpture.alt}
       />
       <p>
         {sculpture.description}
       </p>
+      
+    </>
+  );
+}
+let guest = 0;
+
+function Guest() {
+  guest = guest + 1;
+  return <h2>Your Guest id is - #{guest}</h2>;
+}
+
+export  function TeaSet() {
+  return (
+    <>
+      <Guest />
+      <Guest />
     </>
   );
 }
