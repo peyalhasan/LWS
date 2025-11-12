@@ -1,49 +1,83 @@
 import { useState } from 'react';
-import { sculptureList } from './data.js';
+// import { sculptureList } from './data.js';
 
-export default function Gallery() {
-  const [index, setIndex] = useState(0);
+// export default function Gallery() {
+//   const [index, setIndex] = useState(0);
 
-  function handleClick() {
-    setIndex(index + 1);
-  }
+//   function handleClick() {
+//     setIndex(index + 1);
+//   }
 
-  let sculpture = sculptureList[index];
-  return (
-    <>
-      <button onClick={handleClick}>
-        Next
-      </button>
-      <h2>
-        <i>{sculpture.name} </i>
-        by {sculpture.artist}
-      </h2>
-      <h3>
-        ({index + 1} of {sculptureList.length})
-      </h3>
-      <img
-        src={sculpture.url}
-        alt={sculpture.alt}
-      />
-      <p>
-        {sculpture.description}
-      </p>
+//   let sculpture = sculptureList[index];
+//   return (
+//     <>
+//       <button onClick={handleClick}>
+//         Next
+//       </button>
+//       <h2>
+//         <i>{sculpture.name} </i>
+//         by {sculpture.artist}
+//       </h2>
+//       <h3>
+//         ({index + 1} of {sculptureList.length})
+//       </h3>
+//       <img
+//         src={sculpture.url}
+//         alt={sculpture.alt}
+//       />
+//       <p>
+//         {sculpture.description}
+//       </p>
       
-    </>
-  );
-}
-let guest = 0;
+//     </>
+//   );
+// }
+// let guest = 0;
 
-function Guest() {
-  guest = guest + 1;
-  return <h2>Your Guest id is - #{guest}</h2>;
-}
+// function Guest() {
+//   guest = guest + 1;
+//   return <h2>Your Guest id is - #{guest}</h2>;
+// }
 
-export  function TeaSet() {
+// export  function TeaSet() {
+//   return (
+//     <>
+//       <Guest />
+//       <Guest />
+//     </>
+//   );
+// }
+
+export function App() {
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0
+  });
   return (
-    <>
-      <Guest />
-      <Guest />
-    </>
+    <div
+      onPointerMove={e => {
+        setPosition({
+          
+          x:  e.clientX,
+           y: e.clientY,
+        })
+      }}
+      style={{
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+      }}>
+      <div style={{
+        position: 'absolute',
+        backgroundColor: 'red',
+        borderRadius: '50%',
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        left: -10,
+        top: -10,
+        width: 20,
+        height: 20,
+        animationDelay: 20000
+      }} />
+    </div>
   );
 }
