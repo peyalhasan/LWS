@@ -24,13 +24,53 @@ function disabled(el){
 
 
 
-// vent handlrs
+// Event handlrs
 
 form.onsubmit = handleFormSubmit;
 textarea.oninput = handleTextChange;
 
 async function handleFormSubmit(e) {
     e.preventDefault();
-    disabled()
+    disabled(textarea)
+    disabled(button)
+    show(loadingMessage)
+    hide(errorMessage);
+    try{
+        await submitForm(textarea.value);
+        show(successMessage)
+        hide(form)
+    }catch(err){
+        show(errorMessage);
+        errorMessage.textContent = err.message;
+    }finally{
+        hide(loadingMessage)
+        enable(textarea)
+        enable(button)
+    }
 
+}
+
+// Input  
+
+function handleTextChange(){
+    if(textarea.value.length === 0){
+        disabled(button)
+    }else{
+        enable(button)
+    }
+}
+
+// Submit Form 
+
+function submitForm(answer){
+    // Pretend it's hitting the network
+    return new Promise ((resolve, reject)=>{
+        setTimeout(()=>{
+            if( answer.toLowerCase() === 'dhaka' ){
+                resolve();
+            }else{
+                reject(new Error("Good guess but a wrong answer. Try again!") )
+            }
+        }, 3000)
+    })
 }
